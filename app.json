@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "si-669-final-project-Brendo0515",
-    "slug": "si-669-final-project-Brendo0515",
+    "name": "week8NavWithCRUD",
+    "slug": "week8NavWithCRUD",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
