@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './HomeScreen';
 import Profile from './Profile';
 import Community from './Community';
+import EditProfile from './EditProfile';
+import NewPost from './NewPost'
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +19,8 @@ function App() {
             options={{ title: 'Home' }}/>
         <Stack.Screen name="Community" component={Community} options={{ title: 'Community' }}/>
         <Stack.Screen name="Profile" component={Profile} options={{ title: 'Profile' }}/>
+        <Stack.Screen name="EditProfile" component={EditProfile} options={{ title: 'Edit Profile' }}/>
+        <Stack.Screen name="NewPost" component={NewPost} options={{ title: 'Create Post' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

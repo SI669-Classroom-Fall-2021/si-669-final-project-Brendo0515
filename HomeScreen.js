@@ -5,10 +5,51 @@ import { getDataModel } from './DataModel';
 
 function HomeScreen({navigation}) {
 
+  const dataModel = getDataModel();
+
+  const [postList, setPostList] = useState(dataModel.getPostList());
+
+  useEffect(()=>{
+    dataModel.subscribeToUpdates(()=>{
+      setPostList(dataModel.getPostList());
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.bodyArea}>
-        <Text>No Posts Yet</Text>
+        <Button 
+            title="+ New Post"
+            color="red"
+            onPress={()=>{
+              navigation.navigate("NewPost");
+            }} 
+          />
+        <FlatList 
+          data={postList} 
+          renderItem={({item})=>{
+            return (
+            <View style={styles.postBody}>
+              <View style={styles.contentHeader}>
+                <Text style={styles.postTitle}>{item.postTitle}</Text>
+                <Button
+                  title="x"
+                  color="red"
+                  onPress={()=>{
+                    dataModel.deletePost(item.key);
+                  }}
+                />
+              </View>
+              <View>
+                <Text style={styles.postAuthor}>{item.author}</Text>
+              </View>
+              <View style={styles.postText}>
+                <Text>{item.postText}</Text>
+              </View>
+            </View>
+              );
+            }}
+          />
       </View>
       <View style={styles.bottomNav}>
         <Button
@@ -54,7 +95,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-  }
+  },
+  postBody: {
+    margin: 10,
+    padding: 7,
+    paddingBottom: 15,
+    backgroundColor: 'white',
+  },
+  contentHeader: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+  postText: {
+    paddingTop: 15,
+    alignItems: 'center',
+  },
+  postTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  postAuthor: {
+    fontSize: 11,
+    fontStyle: 'italic',
+  },
 });
 
 export default HomeScreen;

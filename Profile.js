@@ -1,14 +1,22 @@
-import React, {useState} from 'react';
-import { StyleSheet, Text, View, Button, Input, Image} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { StyleSheet, Text, View, Button, Image} from 'react-native';
 import { getDataModel } from './DataModel';
 
-function Profile({navigation, route}) {
+function Profile({navigation}) {
 
-  let item = route.params ? route.params.item : null;
-  let editMode = (item != null);
-  const [inputText, setInputText] = useState(item? item.text : '');
+  const dataModel = getDataModel();
 
-  let dataModel = getDataModel();
+  const [bioText, setBioText] = useState(dataModel.getProfileBio());
+  const [guitarText, setGuitarText] = useState(dataModel.getProfileGuitar());
+  const [ampText, setAmpText] = useState(dataModel.getProfileAmp());
+
+  useEffect(()=>{
+    dataModel.subscribeToUpdates(()=>{
+      setBioText(dataModel.getProfileBio());
+      setGuitarText(dataModel.getProfileGuitar());
+      setAmpText(dataModel.getProfileAmp());
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -23,30 +31,40 @@ function Profile({navigation, route}) {
         <View style={styles.bioSection}>
           <View style={styles.contentHeader}>
             <Text>Bio</Text>
-            <Button title="Edit" color='red' />
+            <Button 
+              title="Edit" 
+              color='red'           
+              onPress={()=>{
+                navigation.navigate("EditProfile");
+              }} />
           </View>
           <View style={styles.bioText}>
-            <Text>Hello, am looking for people to jam with.  I am a guitarist who likes to play rock and metal music.</Text>
+            <Text>{bioText}</Text>
           </View>
         </View>
         <View style={styles.gearSection}>
         <View style={styles.contentHeader}>
           <Text>Gear</Text>
-            <Button title="Edit" color='red' />
+            <Button 
+              title="Edit" 
+              color='red'           
+              onPress={()=>{
+                navigation.navigate("EditProfile");
+              }} />
           </View>
           <View style={styles.gearText}>
             <Image
               style={styles.blankPic}
               source={require('./assets/blank.png')}
             />
-            <Text>Gibson Les Paul</Text>
+            <Text>{guitarText}</Text>
           </View>
           <View style={styles.gearText}>
             <Image
                 style={styles.blankPic}
                 source={require('./assets/blank.png')}
               />
-            <Text>Marshall 40w</Text>
+            <Text>{ampText}</Text>
           </View>
         </View>
       </View>
@@ -129,7 +147,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   bioText: {
-    paddingTop: 20,
+    paddingTop: 15,
     alignItems: 'center',
   },
   gearSection: {
