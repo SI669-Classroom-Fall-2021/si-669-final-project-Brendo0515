@@ -87,7 +87,7 @@ function Profile({navigation}) {
 
         <Button
           title="Profile"
-          color="black"
+          color="red"
           onPress={()=>{
             navigation.navigate("Profile");
           }}
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#853E99',
     justifyContent: 'space-between',
+    paddingTop: 25,
   },
   inputArea: {
     flex: 0.15,

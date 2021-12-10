@@ -47,7 +47,7 @@ function Community({navigation}) {
 
           <Button
             title="Community"
-            color="black"
+            color="red"
             onPress={()=>{
               navigation.navigate("Community");
             }}
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     flex: 0.85,
     width: '100%',
     backgroundColor: '#853E99',
+    paddingTop: 40,
   },
   bottomNav: {
     flex: 0.15,

@@ -7,13 +7,17 @@ import Community from './Community';
 import EditProfile from './EditProfile';
 import NewPost from './NewPost'
 import ViewProfile from './ViewProfile'
+import LoginPage from './LoginPage'
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Login" screenOptions={{headerShown: false}}>
+        <Stack.Screen 
+            name="Login" 
+            component={LoginPage}/>
         <Stack.Screen 
             name="Home" 
             component={HomeScreen} 

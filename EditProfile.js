@@ -49,6 +49,7 @@ function EditProfile({navigation}) {
         <Button
           containerStyle={styles.button}
           title="Cancel"
+          color="red"
           onPress={()=>{
             navigation.navigate("Profile");
           }}
@@ -56,11 +57,8 @@ function EditProfile({navigation}) {
         <Button
           containerStyle={styles.button}
           title="Save"
+          color="black"
           onPress={()=>{
-//            item.bio = bioText;
-//            item.guitar = guitarText;
-//            item.amp = ampText;
-//            dataModel.updateProfile(item.key, item);
               dataModel.updateProfile(bioText, guitarText, ampText);
             navigation.navigate("Profile");
           }}
@@ -84,6 +82,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingBottom: 35,
+    paddingTop: 25,
   },
   inputLabel: {
     flex: 0.2,
@@ -100,9 +99,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingTop: 30,
     justifyContent: 'space-between',
-    //alignItems: 'center',
     width: '70%',
-    //backgroundColor: 'tan'
   },
   button: {
     width: '40%'

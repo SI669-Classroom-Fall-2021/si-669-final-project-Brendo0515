@@ -53,7 +53,7 @@ function HomeScreen({navigation}) {
       <View style={styles.bottomNav}>
         <Button
             title="Home"
-            color="black"
+            color="red"
             onPress={()=>{
               navigation.navigate("Home");
             }}
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     flex: 0.85,
     width: '100%',
     backgroundColor: '#853E99',
+    paddingTop: 25,
   },
   bottomNav: {
     flex: 0.15,

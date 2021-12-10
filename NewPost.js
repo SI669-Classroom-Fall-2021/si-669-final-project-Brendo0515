@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingBottom: 35,
+    paddingTop: 25,
   },
   inputLabel: {
     flex: 0.2,
