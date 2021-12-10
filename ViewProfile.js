@@ -2,21 +2,9 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Button, Image} from 'react-native';
 import { getDataModel } from './DataModel';
 
-function Profile({navigation}) {
+function viewProfile({navigation, route}) {
 
-  const dataModel = getDataModel();
-
-  const [bioText, setBioText] = useState(dataModel.getProfileBio());
-  const [guitarText, setGuitarText] = useState(dataModel.getProfileGuitar());
-  const [ampText, setAmpText] = useState(dataModel.getProfileAmp());
-
-  useEffect(()=>{
-    dataModel.subscribeToUpdates(()=>{
-      setBioText(dataModel.getProfileBio());
-      setGuitarText(dataModel.getProfileGuitar());
-      setAmpText(dataModel.getProfileAmp());
-    });
-  }, []);
+  let item = route.params ? route.params.item : null;
 
   return (
     <View style={styles.container}>
@@ -26,45 +14,33 @@ function Profile({navigation}) {
             style={styles.profilePic}
             source={require('./assets/profilepic.png')}
           />
-          <Text style={styles.profileText}>Brendon</Text>
+          <Text style={styles.profileText}>{item.username}</Text>
         </View>
         <View style={styles.bioSection}>
           <View style={styles.contentHeader}>
             <Text>Bio</Text>
-            <Button 
-              title="Edit" 
-              color='red'           
-              onPress={()=>{
-                navigation.navigate("EditProfile");
-              }} />
           </View>
           <View style={styles.bioText}>
-            <Text>{bioText}</Text>
+            <Text>{item.bio}</Text>
           </View>
         </View>
         <View style={styles.gearSection}>
         <View style={styles.contentHeader}>
           <Text>Gear</Text>
-            <Button 
-              title="Edit" 
-              color='red'           
-              onPress={()=>{
-                navigation.navigate("EditProfile");
-              }} />
           </View>
           <View style={styles.gearText}>
             <Image
-              style={styles.gearPic}
+              style={styles.blankPic}
               source={require('./assets/guitar.png')}
             />
-            <Text>{guitarText}</Text>
+            <Text>{item.guitar}</Text>
           </View>
           <View style={styles.gearText}>
             <Image
-                style={styles.gearPic}
+                style={styles.blankPic}
                 source={require('./assets/amp.png')}
               />
-            <Text>{ampText}</Text>
+            <Text>{item.amp}</Text>
           </View>
         </View>
       </View>
@@ -123,7 +99,7 @@ const styles = StyleSheet.create({
     marginLeft: 25,
     marginRight: 35,
   },
-  gearPic: {
+  blankPic: {
     width: 70,
     height: 70,
     marginRight: 30,
@@ -150,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   bioText: {
-    paddingTop: 15,
+    paddingTop: 25,
     alignItems: 'center',
   },
   gearSection: {
@@ -160,7 +136,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   gearText: {
-    paddingTop: 10,
+    paddingTop: 20,
     paddingLeft: 15,
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -173,4 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default viewProfile;

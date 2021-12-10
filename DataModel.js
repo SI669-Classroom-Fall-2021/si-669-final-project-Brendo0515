@@ -19,6 +19,8 @@ class DataModel {
 // Home ----------------------
     this.postList = [];
     this.author = 'Brendon'; //will fix later
+// Community -----------------
+    this.profileList = [];
 // Profile -------------------
     this.bio = '';
     this.guitar = '';
@@ -28,6 +30,7 @@ class DataModel {
     this.subscribers = []; 
     this.loadHome();
     this.loadProfile();
+    this.loadCommunity();
   }
 
   loadHome() {
@@ -40,6 +43,20 @@ class DataModel {
         list.push(listItem);
       });
       this.postList = list;
+      this.updateSubscribers();
+    });
+  }
+
+  loadCommunity() {
+    const q = query(collection(db, 'Community'));
+    onSnapshot(q, (qSnap) => {
+      let list = []; 
+      qSnap.docs.forEach((docSnap)=>{  
+        let listItem = docSnap.data();
+        listItem.key = docSnap.id;
+        list.push(listItem);
+      });
+      this.profileList = list;
       this.updateSubscribers();
     });
   }
@@ -73,6 +90,12 @@ class DataModel {
     const docRef = doc(db, "Home", key);
     await deleteDoc(docRef);
     this.updateSubscribers();
+  }
+
+// Community -----------------------------
+
+  getProfileList(){
+    return Array.from(this.profileList);
   }
 
 // Profile -------------------------------

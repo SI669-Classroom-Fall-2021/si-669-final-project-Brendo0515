@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { FlatList, StyleSheet, Text, View, Button} from 'react-native';
+import { FlatList, StyleSheet, Text, View, Button, Pressable} from 'react-native';
 import { MaterialIcons as Icon } from '@expo/vector-icons'; 
 import { getDataModel } from './DataModel';
 
@@ -32,13 +32,12 @@ function HomeScreen({navigation}) {
             <View style={styles.postBody}>
               <View style={styles.contentHeader}>
                 <Text style={styles.postTitle}>{item.postTitle}</Text>
-                <Button
-                  title="x"
-                  color="red"
+                <Pressable
                   onPress={()=>{
                     dataModel.deletePost(item.key);
-                  }}
-                />
+                  }}>
+                  <Text style={styles.deleteMark}>x</Text>
+                </Pressable>
               </View>
               <View>
                 <Text style={styles.postAuthor}>{item.author}</Text>
@@ -54,6 +53,7 @@ function HomeScreen({navigation}) {
       <View style={styles.bottomNav}>
         <Button
             title="Home"
+            color="black"
             onPress={()=>{
               navigation.navigate("Home");
             }}
@@ -61,6 +61,7 @@ function HomeScreen({navigation}) {
 
           <Button
             title="Community"
+            color="black"
             onPress={()=>{
               navigation.navigate("Community");
             }}
@@ -68,6 +69,7 @@ function HomeScreen({navigation}) {
 
           <Button
             title="Profile"
+            color="black"
             onPress={()=>{
               navigation.navigate("Profile");
             }}
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
   bodyArea: {
     flex: 0.85,
     width: '100%',
-    backgroundColor: 'grey',
+    backgroundColor: '#853E99',
   },
   bottomNav: {
     flex: 0.15,
@@ -117,6 +119,11 @@ const styles = StyleSheet.create({
   postAuthor: {
     fontSize: 11,
     fontStyle: 'italic',
+  },
+  deleteMark: {
+    fontSize: 20,
+    paddingRight: 5,
+    color: "red",
   },
 });
 
