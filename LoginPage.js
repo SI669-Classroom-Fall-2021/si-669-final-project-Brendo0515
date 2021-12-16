@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Button, TextInput} from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Alert} from 'react-native';
 import { getDataModel } from './DataModel';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword  } from "firebase/auth";
+import { getAuth, updateProfile, signInWithEmailAndPassword, createUserWithEmailAndPassword  } from "firebase/auth";
 
 const auth = getAuth(); 
 

@@ -91,10 +91,14 @@ class DataModel {
   async createUser(authUser) {
 
     let newUser = {
-      displayName: authUser.providerData[0].displayName,
-      authId: authUser.uid        
+      username: authUser.providerData[0].displayName,
+      authId: authUser.uid,   
+      bio: "User has not set a bio",
+      guitar: "none",
+      amp: "none",
+
     };
-    const userDoc = await addDoc(collection(db, 'users'), newUser);
+    const userDoc = await addDoc(collection(db, 'Community'), newUser);
     newUser.key = userDoc.id;  
     return newUser;
   }
