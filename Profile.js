@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Button, Image} from 'react-native';
 import { getDataModel } from './DataModel';
+import { getAuth, signOut  } from "firebase/auth";
 
 function Profile({navigation}) {
 
@@ -9,6 +10,8 @@ function Profile({navigation}) {
   const [bioText, setBioText] = useState(dataModel.getProfileBio());
   const [guitarText, setGuitarText] = useState(dataModel.getProfileGuitar());
   const [ampText, setAmpText] = useState(dataModel.getProfileAmp());
+
+  const auth = getAuth(); 
 
   useEffect(()=>{
     dataModel.subscribeToUpdates(()=>{
@@ -21,6 +24,16 @@ function Profile({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.bodyArea}>
+        <View style={styles.logOut}>
+        <Button
+            title='Log Out'
+            color='red'
+            onPress={()=>{
+              signOut(auth);
+              navigation.navigate('Login');
+            }}
+          />  
+        </View>
         <View style={styles.profileHeader}>
           <Image
             style={styles.profilePic}
@@ -172,6 +185,10 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 15,
   },
+  logOut: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  }
 });
 
 export default Profile;

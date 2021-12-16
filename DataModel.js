@@ -16,6 +16,7 @@ const db = initializeFirestore(app, {
 class DataModel {
 
   constructor() {
+    this.users = [];
 // Home ----------------------
     this.postList = [];
     this.author = 'Brendon'; //will fix later
@@ -75,6 +76,29 @@ class DataModel {
       this.updateSubscribers();
     });
   }
+
+
+  async getUserForAuthUser(authUser) {
+    const userAuthId = authUser.uid;
+    for (let u of this.users) {
+      if (u.authId === userAuthId) {
+        return u;
+      }
+    }
+    return await this.createUser(authUser);
+  }
+
+  async createUser(authUser) {
+
+    let newUser = {
+      displayName: authUser.providerData[0].displayName,
+      authId: authUser.uid        
+    };
+    const userDoc = await addDoc(collection(db, 'users'), newUser);
+    newUser.key = userDoc.id;  
+    return newUser;
+  }
+
 // Home -----------------------------------
   getPostList(){
     return Array.from(this.postList);
