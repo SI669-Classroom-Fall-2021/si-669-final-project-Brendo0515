@@ -19,7 +19,7 @@ class DataModel {
     this.users = [];
 // Home ----------------------
     this.postList = [];
-    this.author = 'Brendon'; //will fix later
+    this.author = ''; //will fix later
 // Community -----------------
     this.profileList = [];
 // Profile -------------------
@@ -80,6 +80,7 @@ class DataModel {
 
   async getUserForAuthUser(authUser) {
     const userAuthId = authUser.uid;
+    this.author = authUser.providerData[0].displayName
     for (let u of this.users) {
       if (u.authId === userAuthId) {
         return u;
@@ -98,6 +99,7 @@ class DataModel {
       amp: "none",
 
     };
+    this.author = newUser.username;
     const userDoc = await addDoc(collection(db, 'Community'), newUser);
     newUser.key = userDoc.id;  
     return newUser;
